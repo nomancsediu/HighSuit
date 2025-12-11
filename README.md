@@ -97,7 +97,6 @@ This strategy is optimal because:
 - `HighScoreManager.java` - Persistent score storage
 - `HighSuitGame.java` - Main game controller
 - `run_java.bat` - Windows batch file for easy execution
-- `high_scores.txt` - Persistent high score storage (created automatically)
 
 ## Game Rules Summary
 
