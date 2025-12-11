@@ -51,7 +51,7 @@ A complete Java implementation of the HighSuit card game supporting all 9 requir
 - Optional viewing after game completion
 
 ### Level 9: Enhanced Features
-- Clean console interface with Unicode card symbols (♠ ♥ ♦ ♣)
+- Clean console interface with card suit symbols (S H D C)
 - Input validation and error handling
 - Persistent data storage
 - Play multiple games in session
@@ -67,19 +67,13 @@ run_java.bat
 
 # Run the main game (Linux/Mac)
 java -Dfile.encoding=UTF-8 HighSuitGame
-
-# Run tests
-java -Dfile.encoding=UTF-8 TestGame
-
-# Run demo
-java -Dfile.encoding=UTF-8 DemoGame
 ```
 
-### For Windows Users:
-To see Unicode card symbols (♠ ♥ ♦ ♣) properly:
-1. Open Command Prompt
-2. Run: `chcp 65001`
-3. Then run the game using `run_java.bat`
+### Card Display:
+- Hearts: H (e.g., AH, KH)
+- Diamonds: D (e.g., AD, KD) 
+- Clubs: C (e.g., AC, KC)
+- Spades: S (e.g., AS, KS)
 
 ## Computer Player Logic
 
@@ -102,8 +96,6 @@ This strategy is optimal because:
 - `GameReplay.java` - Data structures for replay functionality
 - `HighScoreManager.java` - Persistent score storage
 - `HighSuitGame.java` - Main game controller
-- `TestGame.java` - Unit tests
-- `DemoGame.java` - Demonstration
 - `run_java.bat` - Windows batch file for easy execution
 - `high_scores.txt` - Persistent high score storage (created automatically)
 
@@ -117,23 +109,45 @@ This strategy is optimal because:
 
 ## Example Game Flow
 
-```
-=== HighSuit Card Game ===
-Enter number of players (1 or 2): 2
-Enter name for Player 1: Alice
-Enter name for Player 2: Computer
+### Round 1
+**Player 1**
+- Initial Hand: 4♦, 7♦, 2♠, 8♦, 9♠
+- Chosen Bonus Suit: ♦
+- Action: Drops 2♠ and 9♠
+- New Hand: 4♦, 7♦, 10♠, 8♦, Q♦
+- Scoring: ♦ totals 29 points
+- Since ♦ = bonus suit, +5 bonus
+- **Total Score: 34**
 
-=== Round 1 ===
-Alice's hand: 4♦ 7♦ 2♠ 8♦ 9♠
-Maximum single suit score: 19
-Choose bonus suit: Diamonds
-Replace cards: 2♠, 9♠
-Final hand: 4♦ 7♦ 10♠ 8♦ Q♦
-Score: 29 + 5 = 34
+**Player 2**
+- Initial Hand: A♥, 3♥, 3♠, 6♦, K♠
+- Chosen Bonus Suit: ♥
+- Action: Drops 6♦
+- New Hand: A♥, 3♥, 3♠, 6♠, K♠
+- Scoring: ♠ totals 19 points
+- Highest suit (♠) ≠ bonus suit (♥) → no bonus
+- **Total Score: 19**
 
-Computer chooses Spades as bonus suit
-Computer replaces 2 cards
-Final score: 28
+### Round 2
+**Player 1**
+- Initial Hand: J♦, 8♠, Q♠, K♥, 9♥
+- Chosen Bonus Suit: ♠
+- Action: Drops J♦, K♥, 9♥
+- New Hand: J♣, A♠, 5♠, 10♦, Q♣
+- Scoring: ♣ totals 20 points
+- Highest suit (♣) ≠ bonus suit (♠) → no bonus
+- **Total Score: 20**
 
-Winner: Alice!
-```
+**Player 2**
+- Initial Hand: A♣, 4♦, 7♣, 8♥, 5♣
+- Chosen Bonus Suit: ♣
+- Action: Drops 4♦ and 8♥
+- New Hand: A♣, 7♠, 7♣, 4♥, 5♣
+- Scoring: ♣ totals 23 points (A+7+5 = 11+7+5)
+- Matches bonus suit → +5 bonus
+- **Total Score: 28**
+
+### Final Results
+- **Player 1:** 34 + 20 = 54 points
+- **Player 2:** 19 + 28 = 47 points
+- **Winner: Player 1!**

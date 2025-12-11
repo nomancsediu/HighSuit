@@ -20,9 +20,10 @@ public class Card {
     
     @Override
     public String toString() {
-        String symbol = suit.equals("Hearts") ? "♥" : 
-                       suit.equals("Diamonds") ? "♦" : 
-                       suit.equals("Clubs") ? "♣" : "♠";
+        // Use simple letters for Windows console compatibility
+        String symbol = suit.equals("Hearts") ? "H" : 
+                       suit.equals("Diamonds") ? "D" : 
+                       suit.equals("Clubs") ? "C" : "S";
         return rank + symbol;
     }
 }

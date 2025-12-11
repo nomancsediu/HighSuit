@@ -119,15 +119,19 @@ public class HighSuitGame {
         }
         
         while (true) {
+            System.out.print("Enter positions to replace (1-5, max 4, comma-separated) or 'none': ");
+            String choice = scanner.nextLine().trim();
+            if (choice.equalsIgnoreCase("none")) break;
+            
             try {
-                System.out.print("Enter positions to replace (1-5, max 4, comma-separated) or 'none': ");
-                String choice = scanner.nextLine().trim();
-                if (choice.equalsIgnoreCase("none")) break;
-                
                 String[] parts = choice.split(",");
                 List<Integer> positions = new ArrayList<>();
                 for (String part : parts) {
-                    positions.add(Integer.parseInt(part.trim()) - 1);
+                    int pos = Integer.parseInt(part.trim()) - 1;
+                    if (pos < 0 || pos >= 5) {
+                        throw new NumberFormatException("Invalid position");
+                    }
+                    positions.add(pos);
                 }
                 
                 if (positions.size() > 4) {
@@ -135,25 +139,13 @@ public class HighSuitGame {
                     continue;
                 }
                 
-                boolean valid = true;
-                for (int pos : positions) {
-                    if (pos < 0 || pos >= 5) {
-                        valid = false;
-                        break;
-                    }
+                player.removeCards(positions);
+                for (int i = 0; i < positions.size() && deck.size() > 0; i++) {
+                    player.addCard(deck.deal());
                 }
-                
-                if (valid) {
-                    player.removeCards(positions);
-                    for (int i = 0; i < positions.size() && deck.size() > 0; i++) {
-                        player.addCard(deck.deal());
-                    }
-                    break;
-                } else {
-                    System.out.println("Please enter valid positions (1-5)");
-                }
+                break;
             } catch (NumberFormatException e) {
-                System.out.println("Please enter valid numbers");
+                System.out.println("Please enter valid numbers (1-5)");
             }
         }
     }
