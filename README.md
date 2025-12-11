@@ -1,4 +1,4 @@
-# HighSuit Card Game - Java Implementation
+# HighSuit Card Game
 
 **Author:** Noman  
 **Repository:** https://github.com/nomancsediu/HighSuit  
